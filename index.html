@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EreminDev · portfolio</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b0d15;
+      color: #eef2f6;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* floating particles canvas */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #a78bfa, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo span {
+      font-weight: 300;
+      background: none;
+      -webkit-text-fill-color: #94a3b8;
+      color: #94a3b8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a78bfa, #60a5fa);
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 70px 0 60px;
+    }
+
+    .badge {
+      background: rgba(167, 139, 250, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 8px 22px;
+      border-radius: 60px;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #c4b5fd;
+      letter-spacing: 0.3px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 10vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to right, #f0f4ff, #a5b4fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      max-width: 900px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 24px auto 40px;
+      font-weight: 300;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 40px;
+      border-radius: 60px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: #fff;
+      box-shadow: 0 8px 30px -6px rgba(79, 70, 229, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px -6px rgba(79, 70, 229, 0.6);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+
+    .btn-outline:hover {
+      border-color: #818cf8;
+      background: rgba(129, 140, 248, 0.06);
+      color: #fff;
+    }
+
+    /* projects */
+    .projects {
+      padding: 60px 0 80px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title i {
+      color: #818cf8;
+      font-size: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(30, 34, 48, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 32px;
+      padding: 30px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: 0.3s;
+      box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(129, 140, 248, 0.25);
+      background: rgba(34, 38, 56, 0.7);
+      box-shadow: 0 30px 60px -18px #0b0d15;
+    }
+
+    .card-icon {
+      font-size: 2.6rem;
+      color: #818cf8;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #94a3b8;
+      font-weight: 300;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(129, 140, 248, 0.08);
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      border: 1px solid rgba(129, 140, 248, 0.1);
+      align-self: flex-start;
+    }
+
+    .card .btn-small {
+      margin-top: 20px;
+      color: #c4b5fd;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .card .btn-small:hover {
+      color: #fff;
+      border-bottom-color: #818cf8;
+    }
+
+    /* about & contact */
+    .about-section {
+      padding: 40px 0 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .about-text {
+      flex: 2;
+      min-width: 280px;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .about-text h2 i {
+      color: #818cf8;
+      margin-right: 12px;
+    }
+
+    .about-text p {
+      color: #94a3b8;
+      max-width: 600px;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .about-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin: 20px 0 16px;
+    }
+
+    .detail-item {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 10px 22px;
+      border-radius: 60px;
+      border: 1px solid #2d3348;
+      font-size: 0.95rem;
+    }
+
+    .detail-item i {
+      color: #818cf8;
+      margin-right: 10px;
+      width: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 28px;
+      margin-top: 12px;
+    }
+
+    .social-links a {
+      color: #94a3b8;
+      font-size: 1.8rem;
+      transition: 0.2s;
+    }
+
+    .social-links a:hover {
+      color: #a78bfa;
+      transform: scale(1.1);
+    }
+
+    .github-username {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 12px 30px;
+      border-radius: 80px;
+      border: 1px solid #2d3348;
+      font-weight: 500;
+      color: #e2e8f0;
+      letter-spacing: 0.3px;
+      flex: 1;
+      min-width: 200px;
+      align-self: center;
+      text-align: center;
+    }
+
+    .github-username i {
+      margin-right: 12px;
+      color: #818cf8;
+    }
+
+    .footer-note {
+      margin-top: 50px;
+      text-align: center;
+      color: #475569;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.02);
+      padding-top: 30px;
+    }
+
+    /* responsive */
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .about-grid {
+        flex-direction: column;
+      }
+    }
+
+    /* animations */
+    .fade-in {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <!-- canvas for particles -->
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="container">
+    <!-- navigation -->
+    <nav class="navbar fade-in">
+      <div class="logo">Eremin<span>Dev</span></div>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#" onclick="event.preventDefault()">GitHub</a>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <section class="hero fade-in delay-1">
+      <div class="badge"><i class="fas fa-code" style="margin-right: 8px;"></i> 6 years of craft</div>
+      <h1>Yaroslav Eremin<br />Design &amp; Code</h1>
+      <p>25 years old · Ukhta, school №18 · full‑stack designer &amp; developer. I build digital products that feel like art.</p>
+      <div class="btn-group">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> See work</a>
+        <a href="#about" class="btn btn-outline"><i class="fas fa-user-astronaut"></i> About me</a>
+      </div>
+    </section>
+
+    <!-- projects -->
+    <section class="projects" id="projects">
+      <div class="section-title fade-in delay-2">
+        <i class="fas fa-layer-group"></i> Selected projects
+      </div>
+      <div class="grid">
+        <div class="card fade-in delay-2">
+          <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
+          <h3>Nova UI</h3>
+          <p>Component library with dark/light themes, used in 15+ commercial projects. Built with React and Tailwind.</p>
+          <span class="card-tag">React · TS · Tailwind</span>
+          <a href="#" class="btn-small" onclick="event.preventDefault()">Explore <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card fade-in delay-3">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>MindFlow AI</h3>
+          <p>AI-powered mind‑map generator with real‑time collaboration. Used by 200+ teams.</p>
+          <span class="card-tag">Python · Next.js · AI</span>
+          <a href="#" class="btn-small" onclick="event.preventDefault()">Explore <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card fade-in delay-4">
+          <div class="card-icon"><i class="fas fa-cube"></i></div>
+          <h3>Orbit 3D</h3>
+          <p>Immersive 3D portfolio with WebGL and dynamic lighting. Interactive experience for brands.</p>
+          <span class="card-tag">Three.js · WebGL</span>
+          <a href="#" class="btn-small" onclick="event.preventDefault()">Explore <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- about + contact -->
+    <section class="about-section" id="about">
+      <div class="about-grid fade-in delay-3">
+        <div class="about-text">
+          <h2><i class="fas fa-user-astronaut"></i> About Yaroslav</h2>
+          <p><strong>Yaroslav Eremin Aleksandrovich</strong> — 25 years old, from Ukhta (school №18).</p>
+          <p>6 years of professional experience as a programmer &amp; designer. I love creating products that are both beautiful and functional. My background in design helps me bridge the gap between code and visual storytelling.</p>
+          <div class="about-details">
+            <span class="detail-item"><i class="fas fa-calendar-alt"></i> 25 y.o.</span>
+            <span class="detail-item"><i class="fas fa-map-pin"></i> Ukhta, school №18</span>
+            <span class="detail-item"><i class="fas fa-laptop-code"></i> 6 years exp.</span>
+          </div>
+          <div class="social-links">
+            <a href="#" aria-label="GitHub" onclick="event.preventDefault()"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn" onclick="event.preventDefault()"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Telegram" onclick="event.preventDefault()"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" aria-label="Dribbble" onclick="event.preventDefault()"><i class="fab fa-dribbble"></i></a>
+          </div>
+        </div>
+        <div class="github-username">
+          <i class="fab fa-github"></i> EreminDev
+        </div>
+      </div>
+      <div class="footer-note">
+        <i class="fas fa-crown" style="color: #a78bfa; margin-right: 6px;"></i> 2026 · crafted with passion by EreminDev
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      // ——— particles ———
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      let particles = [];
+      const MAX_PARTICLES = 80;
+      const MOUSE_RADIUS = 130;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
+          this.r = Math.random() * 2.2 + 1.0;
+          this.alpha = Math.random() * 0.4 + 0.2;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0 || this.x > w) this.vx *= -1;
+          if (this.y < 0 || this.y > h) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(167, 139, 250, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < MAX_PARTICLES; i++) {
+        particles.push(new Particle());
+      }
+
+      let mouseX = -1000, mouseY = -1000;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      document.addEventListener('mouseleave', () => {
+        mouseX = -1000;
+        mouseY = -1000;
+      });
+
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+              const opacity = (1 - dist / 150) * 0.3;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(167, 139, 250, ${opacity})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function drawMouseConnection() {
+        if (mouseX < 0 || mouseY < 0) return;
+        particles.forEach(p => {
+          const dx = p.x - mouseX;
+          const dy = p.y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MOUSE_RADIUS) {
+            const opacity = (1 - dist / MOUSE_RADIUS) * 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.strokeStyle = `rgba(129, 140, 248, ${opacity})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        drawLines();
+        drawMouseConnection();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // click burst
+      canvas.addEventListener('click', (e) => {
+        const x = e.clientX, y = e.clientY;
+        for (let i = 0; i < 14; i++) {
+          const p = new Particle();
+          p.x = x + (Math.random() - 0.5) * 50;
+          p.y = y + (Math.random() - 0.5) * 50;
+          p.vx = (Math.random() - 0.5) * 2.6;
+          p.vy = (Math.random() - 0.5) * 2.6;
+          p.r = Math.random() * 3.5 + 1.5;
+          p.alpha = 0.7;
+          particles.push(p);
+        }
+        if (particles.length > 200) {
+          particles.splice(0, particles.length - 170);
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
