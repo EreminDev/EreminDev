@@ -51,24 +51,7 @@ I'm a full-stack developer with a designer's soul. For the past **6 years**, I'v
 
 ## 🚀 Featured Projects
 
-### [Nova UI](https://github.com/EreminDev/nova-ui)
-> Component library with dark/light themes, used in 15+ commercial projects.
-- **Stack:** React, TypeScript, Tailwind CSS
-- **Features:** Atomic design, theming, accessibility
-- **Status:** Production-ready
-
-### [MindFlow AI](https://github.com/EreminDev/mindflow-ai)
-> AI-powered mind-map generator with real-time collaboration.
-- **Stack:** Python, Next.js, OpenAI API
-- **Features:** Real-time sync, AI suggestions, export
-- **Users:** 200+ teams
-
-### [Orbit 3D](https://github.com/EreminDev/orbit-3d)
-> Immersive 3D portfolio with WebGL and dynamic lighting.
-- **Stack:** Three.js, WebGL, GSAP
-- **Features:** Interactive scenes, particle effects
-- **Use:** Brand showcases
-
+No
 ---
 
 ## 📊 GitHub Stats
